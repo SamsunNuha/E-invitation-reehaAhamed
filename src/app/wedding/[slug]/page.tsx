@@ -157,7 +157,7 @@ export default function WeddingPage() {
       </div>
 
       {/* Our Love Story Timeline */}
-      <LoveStoryTimeline loveStory={wedding.loveStory} theme={theme} dict={dict} />
+      <LoveStoryTimeline />
 
       {/* Couple Bios & Family */}
       <CoupleSection couple={wedding.couple} theme={theme} dict={dict} />
@@ -167,7 +167,7 @@ export default function WeddingPage() {
       <EventsTimeline events={wedding.events} theme={theme} dict={dict} />
 
       {/* Program Schedule */}
-      <ProgramDressMenu program={wedding.program} dressCode={undefined} menu={[]} theme={theme} dict={dict} />
+      <ProgramDressMenu dressCode={undefined} theme={theme} dict={dict} />
 
       {/* Photo Gallery */}
       <PhotoGallery gallery={wedding.gallery} theme={theme} dict={dict} />
