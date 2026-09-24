@@ -65,7 +65,7 @@ export const ParticleEffects: React.FC<ParticleEffectsProps> = ({ effects, parti
           }}
           transition={{
             duration: item.duration,
-            repeat: Infinity,
+            repeat: 0,
             delay: item.delay,
             ease: 'linear',
           }}

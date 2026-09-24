@@ -7,20 +7,17 @@ import { LanguageCode, ThemeId, WeddingData } from '@/lib/types';
 import { storage } from '@/lib/storage';
 import { DEMO_WEDDINGS } from '@/lib/demo-data';
 
-import { EnvelopeOpening } from '@/components/EnvelopeOpening';
+
 import { LoadingScreen } from '@/components/LoadingScreen';
+import { EnvelopeOpening } from '@/components/EnvelopeOpening';
 import { ParticleEffects } from '@/components/ParticleEffects';
 import { WeddingHero } from '@/components/WeddingHero';
 import { Countdown } from '@/components/Countdown';
 import { ScratchReveal } from '@/components/ScratchReveal';
 import { EraseReveal } from '@/components/EraseReveal';
 import { HeartCounter } from '@/components/HeartCounter';
-import { LoveStoryTimeline } from '@/components/LoveStoryTimeline';
 import { CoupleSection } from '@/components/CoupleSection';
 import { FamilySection } from '@/components/FamilySection';
-import { EventsTimeline } from '@/components/EventsTimeline';
-import { ProgramDressMenu } from '@/components/ProgramDressMenu';
-import { PhotoGallery } from '@/components/PhotoGallery';
 import { VenueMap } from '@/components/VenueMap';
 import { RSVPSection } from '@/components/RSVPSection';
 import { GuestWishes } from '@/components/GuestWishes';
@@ -28,13 +25,14 @@ import { OfficialInvitationCard } from '@/components/OfficialInvitationCard';
 
 import { ShareQRCodeModal } from '@/components/ShareQRCodeModal';
 
-import { Globe, Palette, Heart, Sparkles } from 'lucide-react';
+import { Globe, Palette, Heart, Sparkles, Film } from 'lucide-react';
 
 export default function HomePage() {
   const initialData = DEMO_WEDDINGS[0];
   const [wedding, setWedding] = useState<WeddingData>(initialData);
   const [currentThemeId, setCurrentThemeId] = useState<ThemeId>(initialData.theme || 'romantic-red');
   const [currentLang, setCurrentLang] = useState<LanguageCode>(initialData.language || 'en');
+  const [showEnvelope, setShowEnvelope] = useState<boolean>(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -53,21 +51,12 @@ export default function HomePage() {
 
   return (
     <div className={`min-h-screen bg-gradient-to-b ${theme.bgGradient} font-serif text-stone-100 selection:bg-rose-500 selection:text-white relative`}>
-      {/* Luxury Loading Screen Preloader */}
-      <LoadingScreen coupleNames={`${wedding.couple.brideName} & ${wedding.couple.groomName}`} />
-
-      {/* Interactive Envelope Entrance Modal */}
+      {/* Gold Envelope Left & Right Door Opening Overlay */}
       <EnvelopeOpening
-        brideName={wedding.couple.brideName}
-        groomName={wedding.couple.groomName}
-        weddingDate={wedding.couple.weddingDate}
-        locationName={wedding.couple.locationName}
-        invitationMessage={wedding.couple.invitationMessage}
-        theme={theme}
-        dict={dict}
-        onOpen={() => console.log('Opened invitation envelope')}
+        isOpen={showEnvelope}
+        coupleNames={`${wedding.couple.brideName} & ${wedding.couple.groomName}`}
+        onClose={() => setShowEnvelope(false)}
       />
-
       {/* Floating Particles Engine */}
       <ParticleEffects effects={wedding.effects} particleColor={theme.particleColor} />
 
@@ -83,7 +72,8 @@ export default function HomePage() {
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+
           {/* Language Selector */}
           <div className="flex items-center gap-1 bg-stone-900 border border-amber-400/30 rounded-full px-2 py-1 text-xs">
             <Globe className="w-3.5 h-3.5 text-amber-400" />
@@ -138,7 +128,7 @@ export default function HomePage() {
           {wedding.interactiveFeatures.scratchCard && (
             <ScratchReveal
               title="Scratch to Reveal Save the Date 🗓️"
-              hiddenMessage={`🗓️ June 19, 2027\n⏰ 04:30 PM`}
+              hiddenMessage={`🗓️ December 13, 2026\n⏰ 04:30 PM`}
             />
           )}
           {wedding.interactiveFeatures.eraseCard && <EraseReveal />}
@@ -146,21 +136,10 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Our Love Story Timeline */}
-      <LoveStoryTimeline />
 
       {/* Couple Bios & Family */}
       <CoupleSection couple={wedding.couple} theme={theme} dict={dict} />
       <FamilySection family={wedding.family} theme={theme} dict={dict} />
-
-      {/* Events Itinerary Timeline */}
-      <EventsTimeline events={wedding.events} theme={theme} dict={dict} />
-
-      {/* Program Schedule */}
-      <ProgramDressMenu dressCode={undefined} theme={theme} dict={dict} />
-
-      {/* Photo Gallery */}
-      <PhotoGallery gallery={wedding.gallery} theme={theme} dict={dict} />
 
       {/* Venue Google Maps */}
       <VenueMap

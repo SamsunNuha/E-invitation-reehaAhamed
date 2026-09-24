@@ -1,181 +1,124 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
-import { ThemeConfig } from '@/lib/types';
-import { Dictionary } from '@/lib/dictionary';
+import { Sparkles, Heart } from 'lucide-react';
 
 interface EnvelopeOpeningProps {
-  brideName: string;
-  groomName: string;
-  weddingDate: string;
-  locationName: string;
-  invitationMessage: string;
-  theme: ThemeConfig;
-  dict: Dictionary;
-  onOpen?: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  coupleNames?: string;
 }
 
 export const EnvelopeOpening: React.FC<EnvelopeOpeningProps> = ({
-  onOpen,
+  isOpen = true,
+  onClose,
+  coupleNames = 'Ayesha & Rizwan',
 }) => {
-  const [phase, setPhase] = useState<'closed' | 'opening' | 'opened'>('closed');
+  const [isOpening, setIsOpening] = useState(false);
+  const [isClosedInternal, setIsClosedInternal] = useState(false);
+
+  if (!isOpen || isClosedInternal) return null;
 
   const handleOpen = () => {
-    if (phase !== 'closed') return;
-    setPhase('opening');
-
-    try {
-      confetti({
-        particleCount: 200,
-        spread: 130,
-        origin: { y: 0.5 },
-        colors: ['#D4AF37', '#F3E5AB', '#B8860B', '#FFF8DC', '#FFFFFF', '#FFB6C1'],
-      });
-    } catch (e) {}
-
-    if (onOpen) onOpen();
+    if (isOpening) return;
+    setIsOpening(true);
 
     setTimeout(() => {
-      setPhase('opened');
-    }, 2500);
+      setIsClosedInternal(true);
+      if (onClose) onClose();
+    }, 1400);
   };
 
-  if (phase === 'opened') return null;
-
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden p-4"
-        style={{ background: 'radial-gradient(ellipse at center, #2C1D11 0%, #1A1005 60%, #0D0802 100%)' }}
-        exit={{ opacity: 0, scale: 1.08, transition: { duration: 0.8, ease: 'easeInOut' } }}
-      >
-        {/* Ambient Bokeh Lights */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: `${15 + i * 12}px`,
-              height: `${15 + i * 12}px`,
-              background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)',
-              top: `${(i * 23) % 90}%`,
-              left: `${(i * 31) % 90}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.6, 0.2],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 4 + (i % 3),
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-
-        {/* Main Envelope Image — the full start screen */}
-        <motion.div
-          className="relative cursor-pointer select-none"
-          initial={{ scale: 0.85, opacity: 0, y: 30 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+    <div
+      className={`fixed inset-0 z-50 bg-stone-950 flex items-center justify-center overflow-hidden transition-opacity duration-700 ${
+        isOpening ? 'pointer-events-none' : 'pointer-events-auto'
+      }`}
+    >
+      <div className="relative w-full h-full max-w-2xl mx-auto flex items-center justify-center overflow-hidden shadow-2xl [perspective:1200px]">
+        
+        {/* LEFT HALF ENVELOPE DOOR - SLIDES TO LEFT */}
+        <div
           onClick={handleOpen}
+          className={`absolute inset-0 w-full h-full cursor-pointer transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-left z-20 ${
+            isOpening
+              ? '[transform:translateX(-100%)] opacity-0'
+              : '[transform:translateX(0)] opacity-100'
+          }`}
+          style={{ clipPath: 'polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%)' }}
         >
-          {/* Glow behind envelope */}
-          <div
-            className="absolute -inset-8 rounded-3xl blur-2xl pointer-events-none opacity-40"
-            style={{ background: 'radial-gradient(circle, #D4AF37 0%, transparent 70%)' }}
+          <img
+            src="/gold_envelope.jpg"
+            alt="Gold Envelope Left Door"
+            className="w-full h-full object-cover filter brightness-105"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 via-transparent to-black/40 pointer-events-none" />
+        </div>
 
-          {/* The Envelope Image */}
-          <motion.img
-            src="/envelope.png?v=2"
-            alt="Wedding Invitation - Thoofa & Hizam"
-            className="relative z-10 w-[340px] sm:w-[440px] md:w-[500px] h-auto rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.7)] border border-[#D4AF37]/30"
-            animate={
-              phase === 'opening'
-                ? { scale: 1.1, opacity: 0, y: -100 }
-                : {}
-            }
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        {/* RIGHT HALF ENVELOPE DOOR - SLIDES TO RIGHT */}
+        <div
+          onClick={handleOpen}
+          className={`absolute inset-0 w-full h-full cursor-pointer transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-right z-20 ${
+            isOpening
+              ? '[transform:translateX(100%)] opacity-0'
+              : '[transform:translateX(0)] opacity-100'
+          }`}
+          style={{ clipPath: 'polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%)' }}
+        >
+          <img
+            src="/gold_envelope.jpg"
+            alt="Gold Envelope Right Door"
+            className="w-full h-full object-cover filter brightness-105"
           />
-        </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-l from-amber-400/10 via-transparent to-black/40 pointer-events-none" />
+        </div>
 
-        {/* OPEN INVITATION Button (below image) */}
-        {phase === 'closed' && (
-          <motion.button
-            className="mt-8 z-50 flex flex-col items-center cursor-pointer"
-            onClick={handleOpen}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
+        {/* TOP COUPLE BADGE HEADER */}
+        <div className="absolute top-5 sm:top-6 z-40 flex items-center gap-1.5 sm:gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-200 text-[11px] sm:text-xs font-serif font-bold backdrop-blur-md shadow-xl pointer-events-none">
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 animate-pulse" />
+          <span>{coupleNames}</span>
+        </div>
+
+        {/* CENTER BUTTERFLY WAX SEAL BUTTON WITH LIGHT SCROLL */}
+        <div
+          onClick={handleOpen}
+          className={`absolute z-40 flex flex-col items-center gap-3 sm:gap-4 text-center my-auto transition-all duration-700 cursor-pointer px-4 ${
+            isOpening ? 'scale-150 opacity-0 pointer-events-none' : 'opacity-100 scale-100'
+          }`}
+        >
+          <button
+            aria-label="Open Wedding Invitation"
+            className="group relative flex items-center justify-center w-22 h-22 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-amber-600 via-amber-300 to-amber-500 border-2 border-amber-200 text-stone-950 animate-gold-pulse overflow-hidden shadow-[0_0_50px_rgba(212,175,55,0.8)]"
           >
-            {/* Pulsing Gold Wax Seal */}
-            <motion.div
-              className="relative"
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              {/* Glow */}
-              <div
-                className="absolute -inset-4 rounded-full blur-xl pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.7) 0%, transparent 70%)' }}
-              />
+            {/* INNER BUTTON LIGHT SCROLL EFFECT */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/90 to-transparent w-full h-full animate-light-scroll pointer-events-none" />
 
-              {/* Seal */}
-              <div
-                className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center border-2 border-[#FFE8A3] shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-                style={{
-                  background: 'conic-gradient(from 30deg, #6B4F0A, #C8920A, #F3E5AB, #D4AF37, #8C6A0F, #6B4F0A)',
-                }}
-              >
-                <div
-                  className="rounded-full flex items-center justify-center"
-                  style={{
-                    width: '80%',
-                    height: '80%',
-                    background: 'radial-gradient(circle at 35% 35%, #D4AF37, #8C6A0F, #573E05)',
-                    border: '1.5px solid rgba(243,229,171,0.7)',
-                    boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.4)',
-                  }}
-                >
-                  <svg className="w-6 h-6 text-[#FFF8DC] drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Button Label */}
-            <div
-              className="mt-3 px-7 py-2.5 rounded-full font-extrabold text-[11px] tracking-[0.2em] uppercase flex items-center gap-2 shadow-2xl border border-[#D4AF37]"
-              style={{
-                background: 'linear-gradient(135deg, #3E2B1E, #2C1D11)',
-                color: '#FCEEAC',
-                boxShadow: '0 8px 25px rgba(0,0,0,0.8)',
-              }}
-            >
-              <span>OPEN INVITATION</span>
-              <span>💌</span>
+            <div className="relative z-10 flex flex-col items-center justify-center text-stone-950 font-serif">
+              <Heart className="w-7 h-7 sm:w-10 sm:h-10 fill-stone-950 text-stone-950 group-hover:scale-110 transition-transform drop-shadow" />
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest mt-0.5 text-stone-950 drop-shadow-sm">
+                OPEN
+              </span>
             </div>
-          </motion.button>
+          </button>
+
+          <div className="space-y-1 pointer-events-none">
+            <h3 className="text-lg sm:text-2xl font-serif font-bold text-amber-200 drop-shadow-lg tracking-wide">
+              Tap Envelope to Open 💌
+            </h3>
+            <p className="text-[11px] sm:text-xs text-amber-100/90 drop-shadow-md font-serif">
+              Reveal {coupleNames}&apos;s Official Invitation
+            </p>
+          </div>
+        </div>
+
+        {/* GOLD LIGHT BURST EFFECT ON CLICK */}
+        {isOpening && (
+          <div className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center overflow-hidden">
+            <div className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-rose-400 opacity-90 filter blur-3xl animate-ping" />
+          </div>
         )}
 
-        {/* Opening phase text */}
-        {phase === 'opening' && (
-          <motion.p
-            className="mt-8 text-[#D4AF37] text-sm font-serif tracking-wider z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0.5, 1] }}
-            transition={{ duration: 1.5 }}
-          >
-            ✨ Opening your invitation... ✨
-          </motion.p>
-        )}
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </div>
   );
 };

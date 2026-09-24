@@ -18,13 +18,13 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({ wedding, theme, dict }
   return (
     <div className="relative min-h-[95vh] flex flex-col items-center justify-center text-center p-4 overflow-hidden bg-gradient-to-b from-[#FAF6EE] via-[#F3EAD9] to-[#E8D9C3]">
       {/* Background Archway Backdrop Illustration */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-65">
         <img
-          src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80"
-          alt="Palace Venue Arch"
-          className="w-full h-full object-cover filter brightness-110 sepia-[0.3]"
+          src="/couple_flower_back_pose.png"
+          alt="Luxury Muslim Couple Floral Back Pose"
+          className="w-full h-full object-cover filter brightness-95 contrast-105 scale-[1.02]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EE]/80 via-[#FAF6EE]/50 to-[#E8D9C3]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EE]/70 via-[#FAF6EE]/35 to-[#E8D9C3]" />
       </div>
 
       {/* Top Hanging Golden Crystal Chandelier Vector Overlay */}

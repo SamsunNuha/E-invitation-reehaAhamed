@@ -40,3 +40,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #d97706;
 }
+
+/* Button Light Scroll Animation */
+@keyframes lightScroll {
+  0% {
+    transform: translateX(-180%) rotate(25deg);
+  }
+  55% {
+    transform: translateX(180%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(180%) rotate(25deg);
+  }
+}
+
+.animate-light-scroll {
+  animation: lightScroll 2.4s infinite ease-in-out;
+}
+
+/* 3D Envelope Gold Seal Pulse */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.6), inset 0 0 15px rgba(255, 235, 150, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(245, 208, 92, 0.95), inset 0 0 30px rgba(255, 245, 190, 0.9);
+    transform: scale(1.04);
+  }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 2s infinite ease-in-out;
+}
+

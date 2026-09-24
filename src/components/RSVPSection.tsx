@@ -18,7 +18,7 @@ interface RSVPSectionProps {
   dict: Dictionary;
 }
 
-const DEFAULT_MESSAGE = `💐 Assalamu Alaikum Thoofa & Hizam!
+const DEFAULT_MESSAGE = `💐 Assalamu Alaikum Ayesha & Riswan!
 
 Wishing you both a lifetime filled with love, laughter, and endless happiness on your beautiful journey together! 
 

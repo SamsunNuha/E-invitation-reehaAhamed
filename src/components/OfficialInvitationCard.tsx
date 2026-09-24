@@ -29,8 +29,8 @@ export const OfficialInvitationCard: React.FC = () => {
       >
         {/* Full Image Display of Official Invitation Card */}
         <img
-          src="/invitation_card_image.png"
-          alt="Official Wedding Invitation Card - Thoofa & Hizam"
+          src="/invitation_card_image.png?v=30"
+          alt="Official Wedding Invitation Card - Ayesha & Rizwan"
           className="w-full h-auto object-contain rounded-2xl group-hover:scale-[1.01] transition-transform duration-500"
         />
 
@@ -38,12 +38,12 @@ export const OfficialInvitationCard: React.FC = () => {
         <div className="p-6 w-full bg-[#FAF6EE] border-t-2 border-[#D4AF37]/40 flex items-center justify-between flex-wrap gap-4">
           <div>
             <p className="text-sm font-serif font-bold text-[#3E2B1E]">Official Invitation Card</p>
-            <p className="text-xs text-[#7C624E]">Thoofa & Hizam • June 19, 2027</p>
+            <p className="text-xs text-[#7C624E]">Ayesha & Rizwan • December 13, 2026</p>
           </div>
           <a
             href="/invitation_card_image.png"
             target="_blank"
-            download="Thoofa_Hizam_Wedding_Invitation.png"
+            download="Ayesha_Rizwan_Wedding_Invitation.png"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] text-[#3E2B1E] font-bold text-xs shadow-lg hover:scale-105 transition-transform"
           >
             <Download className="w-4 h-4" />
