@@ -114,22 +114,6 @@ export default function WeddingPage() {
                 </button>
               ))}
             </div>
-
-            {/* Theme Quick Switcher dropdown */}
-            <div className="flex items-center gap-1 bg-stone-900 border border-amber-400/30 rounded-full px-2 py-1 text-xs">
-              <Palette className="w-3.5 h-3.5 text-rose-400" />
-              <select
-                value={currentThemeId}
-                onChange={(e) => setCurrentThemeId(e.target.value as ThemeId)}
-                className="bg-transparent text-amber-200 text-xs font-semibold focus:outline-none cursor-pointer"
-              >
-                {Object.values(THEMES).map((t) => (
-                  <option key={t.id} value={t.id} className="bg-stone-900 text-stone-100">
-                    {t.name}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
         </div>
 

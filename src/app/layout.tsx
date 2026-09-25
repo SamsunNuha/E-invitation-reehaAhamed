@@ -1,14 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Personalized Digital Wedding Invitation Platform",
-  description: "Create premium, interactive digital wedding invitations with envelope animations, live countdown, calendar sync, WhatsApp RSVP, and background music.",
+  title: "Reeha & Ahamed - Royal Wedding Invitation",
+  description: "Official interactive digital wedding invitation for Reeha & Ahamed. Join us on December 13, 2026 at Lee Meredian Hall, Sainthamaruthu.",
   openGraph: {
-    title: "Personalized Digital Wedding Invitation Platform",
-    description: "Interactive online wedding invitations for brides & grooms.",
-    images: ["https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80"],
+    title: "Reeha & Ahamed - Royal Wedding Invitation",
+    description: "Official interactive digital wedding invitation for Reeha & Ahamed.",
+    images: ["/couple_flower_back_pose.png"],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -17,8 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -26,7 +34,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-stone-950 text-stone-100 min-h-screen">
+      <body className="antialiased bg-stone-950 text-stone-100 min-h-screen overflow-x-hidden">
         {children}
       </body>
     </html>
