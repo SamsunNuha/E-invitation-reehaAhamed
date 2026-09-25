@@ -18,7 +18,7 @@ interface RSVPSectionProps {
   dict: Dictionary;
 }
 
-const DEFAULT_MESSAGE = `💐 Assalamu Alaikum Ayesha & Riswan!
+const DEFAULT_MESSAGE = `💐 Assalamu Alaikum Reeha & Ahamed!
 
 Wishing you both a lifetime filled with love, laughter, and endless happiness on your beautiful journey together! 
 
@@ -61,9 +61,9 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         style={{
-          background: 'linear-gradient(145deg, #FAF6EE 0%, #F5ECE0 60%, #EFE3D3 100%)',
-          border: '1.5px solid rgba(212,175,55,0.5)',
-          boxShadow: '0 30px 70px rgba(0,0,0,0.18), 0 8px 20px rgba(212,175,55,0.15)',
+          background: 'linear-gradient(145deg, #4A0A14 0%, #2E050D 60%, #1F0307 100%)',
+          border: '2px solid rgba(212,175,55,0.6)',
+          boxShadow: '0 30px 70px rgba(0,0,0,0.6), 0 8px 20px rgba(212,175,55,0.2)',
         }}
       >
         {/* Decorative top gold line */}
@@ -91,15 +91,15 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
               <Heart className="w-8 h-8 fill-white text-white" />
             </motion.div>
 
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-[#B8860B] text-[11px] font-bold tracking-widest uppercase mb-3">
-              <Sparkles className="w-3 h-3" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-[#FCEEAC] text-[11px] font-bold tracking-widest uppercase mb-3">
+              <Sparkles className="w-3 h-3 text-[#D4AF37]" />
               <span>Send Warm Wishes</span>
             </div>
 
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-[#3E2B1E] mb-1">
+            <h3 className="text-3xl md:text-4xl font-serif font-bold text-[#FCEEAC] mb-1 drop-shadow-md">
               Send a Greeting 💌
             </h3>
-            <p className="text-xs text-[#7C624E] font-serif mt-1">
+            <p className="text-xs text-[#D4AF37] font-serif mt-1">
               Your message will be sent directly to the bride on WhatsApp
             </p>
           </div>
@@ -113,7 +113,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
 
           {/* Message Box */}
           <div className="relative mb-6">
-            <label className="block text-[10px] font-bold text-[#7C624E] uppercase tracking-widest mb-2 ml-1">
+            <label className="block text-[10px] font-bold text-[#FCEEAC] uppercase tracking-widest mb-2 ml-1">
               Your Greeting Message
             </label>
             <div className="relative">
@@ -121,24 +121,24 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                 rows={8}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full px-5 py-4 rounded-2xl text-[#2C1D11] text-sm leading-relaxed resize-none focus:outline-none transition-all"
+                className="w-full px-5 py-4 rounded-2xl text-[#FFF8ED] text-sm leading-relaxed resize-none focus:outline-none transition-all"
                 style={{
-                  background: 'rgba(255,255,255,0.7)',
-                  border: '1.5px solid rgba(212,175,55,0.4)',
-                  boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.04)',
+                  background: 'rgba(31,3,7,0.85)',
+                  border: '1.5px solid rgba(212,175,55,0.5)',
+                  boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.3)',
                   fontFamily: 'Georgia, serif',
                 }}
                 onFocus={(e) => {
-                  e.target.style.border = '1.5px solid rgba(184,134,11,0.8)';
-                  e.target.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.04), 0 0 0 3px rgba(212,175,55,0.12)';
+                  e.target.style.border = '1.5px solid rgba(212,175,55,0.9)';
+                  e.target.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.3), 0 0 0 3px rgba(212,175,55,0.2)';
                 }}
                 onBlur={(e) => {
-                  e.target.style.border = '1.5px solid rgba(212,175,55,0.4)';
-                  e.target.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.04)';
+                  e.target.style.border = '1.5px solid rgba(212,175,55,0.5)';
+                  e.target.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.3)';
                 }}
               />
               {/* Character hint */}
-              <div className="absolute bottom-3 right-4 text-[10px] text-[#A08978]">
+              <div className="absolute bottom-3 right-4 text-[10px] text-[#D4AF37]/80">
                 {message.length} chars
               </div>
             </div>

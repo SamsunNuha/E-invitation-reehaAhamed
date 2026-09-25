@@ -3,7 +3,7 @@ import { WeddingData } from './types';
 export const DEMO_WEDDINGS: WeddingData[] = [
   {
     id: 'w-001',
-    slug: 'ayesha-riswan',
+    slug: 'reeha-ahamed',
     status: 'published',
     createdAt: '2026-09-01T10:00:00.000Z',
     packageTier: 'luxury',
@@ -11,13 +11,13 @@ export const DEMO_WEDDINGS: WeddingData[] = [
     language: 'en',
     darkMode: true,
     couple: {
-      brideName: 'Ayesha',
-      groomName: 'Rizwan',
+      brideName: 'Reeha',
+      groomName: 'Ahamed',
       bridePhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
       groomPhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
       couplePhoto: '/couple_flower_back_pose.png',
-      brideBio: 'A creative interior designer with a passion for art, travel, and warm smiles. Ayesha brings joy to every room she enters.',
-      groomBio: 'A soft-spoken software architect who loves classical music, photography, and late-night star gazing with Ayesha.',
+      brideBio: 'A creative interior designer with a passion for art, travel, and warm smiles. Reeha brings joy to every room she enters.',
+      groomBio: 'A soft-spoken software architect who loves classical music, photography, and late-night star gazing with Reeha.',
       brideParents: 'Daughter of Mr. Mahinda Perera & Mrs. Chitra Perera',
       groomParents: 'Son of Mr. Sunil Fernando & Mrs. Rohini Fernando',
       weddingDate: '2026-12-13',
@@ -35,9 +35,9 @@ export const DEMO_WEDDINGS: WeddingData[] = [
       enabled: false,
     },
     effects: {
-      rosePetals: true,
+      rosePetals: false,
       cherryBlossoms: false,
-      hearts: true,
+      hearts: false,
       sparkles: true,
       confetti: true,
     },
@@ -149,10 +149,10 @@ export const DEMO_WEDDINGS: WeddingData[] = [
       { id: 'r-2', guestName: 'Anusha De Silva', count: 1, attending: true, foodPreference: 'Vegetarian / Vegan', message: 'Wishing you endless love and happiness!', date: '2026-09-12' },
     ],
     guestWishes: [
-      { id: 'w-1', guestName: 'Dilshan & Sarala', message: 'Congratulations Ayesha & Riswan! Wishing you both a lifetime of love, laughter, and beautiful memories!', reaction: '❤️ Congratulations', approved: true, createdAt: '2026-09-05' },
+      { id: 'w-1', guestName: 'Dilshan & Sarala', message: 'Congratulations Reeha & Ahamed! Wishing you both a lifetime of love, laughter, and beautiful memories!', reaction: '❤️ Congratulations', approved: true, createdAt: '2026-09-05' },
       { id: 'w-2', guestName: 'Aunty Malini', message: 'May God bless your union with happiness and prosperity always.', reaction: '💍 Best Wishes', approved: true, createdAt: '2026-09-08' },
     ],
-    heartCount: 42,
+    heartCount: 0,
   },
   {
     id: 'w-002',

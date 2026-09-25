@@ -12,7 +12,7 @@ interface EnvelopeOpeningProps {
 export const EnvelopeOpening: React.FC<EnvelopeOpeningProps> = ({
   isOpen = true,
   onClose,
-  coupleNames = 'Ayesha & Rizwan',
+  coupleNames = 'Reeha & Ahamed',
 }) => {
   const [isOpening, setIsOpening] = useState(false);
   const [isClosedInternal, setIsClosedInternal] = useState(false);

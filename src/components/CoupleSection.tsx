@@ -13,13 +13,13 @@ interface CoupleSectionProps {
 }
 
 export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dict }) => {
-  const brideName = couple.brideName || 'Ayesha';
-  const groomName = couple.groomName || 'Riswan';
+  const brideName = couple.brideName || 'Reeha';
+  const groomName = couple.groomName || 'Ahamed';
 
   return (
     <div className="w-full max-w-5xl mx-auto my-20 px-4">
-      {/* Dark Luxury Backdrop Container */}
-      <div className="bg-stone-950/90 border-2 border-[#D4AF37]/40 rounded-[2.5rem] p-6 sm:p-10 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl relative overflow-hidden">
+      {/* Dark Luxury Red Backdrop Container */}
+      <div className="bg-[#2E050D]/90 border-2 border-[#D4AF37]/60 rounded-[2.5rem] p-6 sm:p-10 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl relative overflow-hidden">
         {/* Subtle Ambient Radial Glow inside container */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#D4AF37]/10 blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-rose-500/10 blur-[100px] pointer-events-none" />
@@ -58,11 +58,11 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
             <motion.div
               animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="w-16 h-16 rounded-full bg-stone-950 border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.7)] flex items-center justify-center text-rose-500 backdrop-blur-md"
+              className="w-16 h-16 rounded-full bg-[#1F0307] border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.7)] flex items-center justify-center text-rose-500 backdrop-blur-md"
             >
               <Heart className="w-8 h-8 fill-rose-500 text-rose-500 animate-pulse" />
             </motion.div>
-            <span className="mt-1 text-[11px] font-serif font-bold text-[#FCEEAC] bg-stone-900/95 px-3 py-0.5 rounded-full border border-[#D4AF37]/50 shadow-lg tracking-wider">
+            <span className="mt-1 text-[11px] font-serif font-bold text-[#FCEEAC] bg-[#2E050D] px-3 py-0.5 rounded-full border border-[#D4AF37]/50 shadow-lg tracking-wider">
               FOREVER & ALWAYS
             </span>
           </div>
@@ -73,7 +73,7 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative min-h-[400px] rounded-3xl overflow-hidden border-2 border-[#D4AF37]/50 bg-stone-900/90 p-8 flex flex-col items-center justify-between shadow-2xl group hover:border-[#D4AF37] transition-all duration-500"
+            className="relative min-h-[400px] rounded-3xl overflow-hidden border-2 border-[#D4AF37]/60 bg-gradient-to-br from-[#4A0A14] via-[#2E050D] to-[#1F0307] p-8 flex flex-col items-center justify-between shadow-2xl group hover:border-[#D4AF37] transition-all duration-500"
           >
             {/* Ambient Card Glow */}
             <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full bg-rose-500/20 blur-2xl pointer-events-none" />
@@ -91,7 +91,7 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
                 transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
                 className="w-36 h-36 rounded-full border-2 border-dashed border-[#D4AF37]/60 absolute inset-0 -m-2"
               />
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-stone-950 via-[#3A2416] to-stone-950 border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.5)] flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#2E050D] via-[#4A0A14] to-[#1F0307] border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.5)] flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
                 <span className="font-serif text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D0] via-[#D4AF37] to-[#AA7C11] drop-shadow-md">
                   {brideName.charAt(0)}
                 </span>
@@ -128,7 +128,7 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative min-h-[400px] rounded-3xl overflow-hidden border-2 border-[#D4AF37]/50 bg-stone-900/90 p-8 flex flex-col items-center justify-between shadow-2xl group hover:border-[#D4AF37] transition-all duration-500"
+            className="relative min-h-[400px] rounded-3xl overflow-hidden border-2 border-[#D4AF37]/60 bg-gradient-to-br from-[#4A0A14] via-[#2E050D] to-[#1F0307] p-8 flex flex-col items-center justify-between shadow-2xl group hover:border-[#D4AF37] transition-all duration-500"
           >
             {/* Ambient Card Glow */}
             <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-amber-500/20 blur-2xl pointer-events-none" />
@@ -146,7 +146,7 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
                 transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
                 className="w-36 h-36 rounded-full border-2 border-dashed border-[#D4AF37]/60 absolute inset-0 -m-2"
               />
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-stone-950 via-[#3A2416] to-stone-950 border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.5)] flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#2E050D] via-[#4A0A14] to-[#1F0307] border-2 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.5)] flex flex-col items-center justify-center relative group-hover:scale-105 transition-transform duration-500">
                 <span className="font-serif text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D0] via-[#D4AF37] to-[#AA7C11] drop-shadow-md">
                   {groomName.charAt(0)}
                 </span>
@@ -185,7 +185,7 @@ export const CoupleSection: React.FC<CoupleSectionProps> = ({ couple, theme, dic
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 p-6 md:p-8 rounded-3xl border-2 border-[#D4AF37]/50 bg-stone-900/95 text-center shadow-2xl relative overflow-hidden backdrop-blur-xl z-10"
+          className="mt-10 p-6 md:p-8 rounded-3xl border-2 border-[#D4AF37]/60 bg-gradient-to-br from-[#4A0A14] via-[#2E050D] to-[#1F0307] text-center shadow-2xl relative overflow-hidden backdrop-blur-xl z-10"
         >
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.15),transparent)] pointer-events-none" />
           

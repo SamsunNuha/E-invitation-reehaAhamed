@@ -93,9 +93,9 @@ export const ShareQRCodeModal: React.FC<ShareQRCodeModalProps> = ({ weddingUrl, 
       {/* Floating trigger button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 p-3.5 rounded-full bg-stone-900/90 text-amber-300 border border-amber-400/40 shadow-2xl backdrop-blur-xl hover:scale-105 transition-transform flex items-center gap-2 group"
+        className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-40 p-2.5 sm:p-3.5 rounded-full bg-[#2E050D]/95 text-amber-300 border-2 border-[#D4AF37]/60 shadow-2xl backdrop-blur-xl hover:scale-105 transition-transform flex items-center gap-2 group"
       >
-        <Share2 className="w-5 h-5 text-amber-400 group-hover:rotate-12 transition-transform" />
+        <Share2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 group-hover:rotate-12 transition-transform" />
         <span className="hidden sm:inline text-xs font-bold text-amber-100 pr-1">Share Invitation</span>
       </button>
 
@@ -110,7 +110,7 @@ export const ShareQRCodeModal: React.FC<ShareQRCodeModalProps> = ({ weddingUrl, 
             onClick={() => setIsOpen(false)}
           >
             <motion.div
-              className="relative w-full max-w-md bg-stone-900 rounded-3xl border border-amber-400/40 p-6 md:p-8 text-center text-amber-100 shadow-2xl"
+              className="relative w-full max-w-md bg-gradient-to-br from-[#4A0A14] via-[#2E050D] to-[#1F0307] rounded-3xl border-2 border-[#D4AF37]/60 p-6 md:p-8 text-center text-amber-100 shadow-2xl"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}

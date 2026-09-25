@@ -9,11 +9,11 @@ export const OfficialInvitationCard: React.FC = () => {
     <div className="w-full max-w-3xl mx-auto my-20 px-4">
       {/* Header Section Tag */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-600 text-xs font-semibold tracking-wider uppercase mb-3">
-          <Sparkles className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4AF37]/60 bg-[#D4AF37]/15 text-[#FCEEAC] text-xs font-semibold tracking-wider uppercase mb-3 shadow-md">
+          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
           <span>Official Invitation Card</span>
         </div>
-        <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#3E2B1E] drop-shadow-sm">
+        <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#FCEEAC] drop-shadow-md">
           Wedding Invitation Card
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-4" />
@@ -21,7 +21,7 @@ export const OfficialInvitationCard: React.FC = () => {
 
       {/* Royal Invitation Card Image Frame */}
       <motion.div
-        className="relative rounded-3xl overflow-hidden border-4 border-[#D4AF37]/80 shadow-[0_25px_60px_rgba(0,0,0,0.3)] bg-stone-900 group flex flex-col items-center"
+        className="relative rounded-3xl overflow-hidden border-4 border-[#D4AF37]/80 shadow-[0_25px_60px_rgba(0,0,0,0.5)] bg-[#1F0307] group flex flex-col items-center"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -29,22 +29,22 @@ export const OfficialInvitationCard: React.FC = () => {
       >
         {/* Full Image Display of Official Invitation Card */}
         <img
-          src="/invitation_card_image.png?v=30"
-          alt="Official Wedding Invitation Card - Ayesha & Rizwan"
+          src="/invitation_card_image.png?v=50"
+          alt="Official Wedding Invitation Card - Reeha & Ahamed"
           className="w-full h-auto object-contain rounded-2xl group-hover:scale-[1.01] transition-transform duration-500"
         />
 
         {/* Download / High Res View Action Button */}
-        <div className="p-6 w-full bg-[#FAF6EE] border-t-2 border-[#D4AF37]/40 flex items-center justify-between flex-wrap gap-4">
+        <div className="p-6 w-full bg-[#2E050D]/95 border-t-2 border-[#D4AF37]/50 flex items-center justify-between flex-wrap gap-4 backdrop-blur-md">
           <div>
-            <p className="text-sm font-serif font-bold text-[#3E2B1E]">Official Invitation Card</p>
-            <p className="text-xs text-[#7C624E]">Ayesha & Rizwan • December 13, 2026</p>
+            <p className="text-sm font-serif font-bold text-[#FCEEAC]">Official Invitation Card</p>
+            <p className="text-xs text-[#D4AF37]/90">Reeha & Ahamed • December 13, 2026</p>
           </div>
           <a
             href="/invitation_card_image.png"
             target="_blank"
-            download="Ayesha_Rizwan_Wedding_Invitation.png"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] text-[#3E2B1E] font-bold text-xs shadow-lg hover:scale-105 transition-transform"
+            download="Reeha_Ahamed_Wedding_Invitation.png"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#FCEEAC] to-[#B8860B] text-[#1F0307] font-bold text-xs shadow-xl hover:scale-105 transition-transform"
           >
             <Download className="w-4 h-4" />
             <span>Download Card Image 📥</span>

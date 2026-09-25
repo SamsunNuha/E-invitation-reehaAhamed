@@ -28,7 +28,6 @@ export const ParticleEffects: React.FC<ParticleEffectsProps> = ({ effects, parti
     const icons: string[] = [];
     if (effects.rosePetals) icons.push('🌸', '🌹');
     if (effects.cherryBlossoms) icons.push('🌸', '🌺');
-    if (effects.hearts) icons.push('❤️', '💖', '💕');
     if (effects.sparkles) icons.push('✨', '⭐');
 
     if (icons.length === 0) return;

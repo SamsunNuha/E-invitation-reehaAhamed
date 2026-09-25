@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Volume2, VolumeX, Play, Pause, Sparkles, ChevronRight } from 'lucide-react';
+import { Volume2, VolumeX, Play, Pause, Sparkles, ChevronRight, X } from 'lucide-react';
 
 interface StartVideoProps {
   videoUrl?: string;
@@ -13,104 +13,70 @@ interface StartVideoProps {
 
 export const StartVideo: React.FC<StartVideoProps> = ({
   videoUrl = '/vdo.mp4',
-  coupleNames = 'Ayesha & Rizwan',
+  coupleNames = 'Reeha & Ahamed',
   onComplete,
   isOpen = true,
   onClose,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [isFlapOpening, setIsFlapOpening] = useState(false);
-  const [isSealExploding, setIsSealExploding] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isClosedInternal, setIsClosedInternal] = useState(false);
-  const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const [showTapToPlay, setShowTapToPlay] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setIsClosedInternal(false);
-      setHasStarted(false);
-      setIsFlapOpening(false);
-      setIsSealExploding(false);
-      setIsPlaying(false);
+      setIsFadingOut(false);
+      setIsVideoLoading(true);
+      setShowTapToPlay(false);
+
+      // Attempt immediate video playback
+      const timer = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.currentTime = 0;
+          videoRef.current.muted = false;
+          setIsMuted(false);
+          videoRef.current
+            .play()
+            .then(() => {
+              setIsPlaying(true);
+              setIsVideoLoading(false);
+              setShowTapToPlay(false);
+            })
+            .catch(() => {
+              // Fallback to muted playback or show tap button
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                videoRef.current
+                  .play()
+                  .then(() => {
+                    setIsPlaying(true);
+                    setIsVideoLoading(false);
+                    setShowTapToPlay(false);
+                  })
+                  .catch(() => {
+                    setIsVideoLoading(false);
+                    setShowTapToPlay(true);
+                  });
+              } else {
+                setIsVideoLoading(false);
+                setShowTapToPlay(true);
+              }
+            });
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  const handleStartVideo = () => {
-    if (isSealExploding || isFlapOpening) return;
-
-    // Phase 1: Wax seal light burst
-    setIsSealExploding(true);
-
-    // Phase 2: Slow Cinematic 4-Slice 3D Flap Unfolding
-    setTimeout(() => {
-      setIsFlapOpening(true);
-    }, 500);
-
-    // Phase 3: Start 4K Video Playback beneath
-    setTimeout(() => {
-      setHasStarted(true);
-      setIsVideoLoading(true);
-
-      // Safety timeout: dismiss spinner after 2.5 seconds max
-      const loadingTimeout = setTimeout(() => {
-        setIsVideoLoading(false);
-      }, 2500);
-
-      // Safety timeout: if video file is missing or fails to play, complete transition smoothly
-      setTimeout(() => {
-        if (!videoRef.current || videoRef.current.paused) {
-          setIsVideoLoading(false);
-          handleFinish();
-        }
-      }, 4500);
-
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.muted = false;
-        setIsMuted(false);
-        videoRef.current
-          .play()
-          .then(() => {
-            clearTimeout(loadingTimeout);
-            setIsPlaying(true);
-            setIsVideoLoading(false);
-          })
-          .catch(() => {
-            if (videoRef.current) {
-              videoRef.current.muted = true;
-              setIsMuted(true);
-              videoRef.current
-                .play()
-                .then(() => {
-                  clearTimeout(loadingTimeout);
-                  setIsPlaying(true);
-                  setIsVideoLoading(false);
-                })
-                .catch(() => {
-                  clearTimeout(loadingTimeout);
-                  setIsVideoLoading(false);
-                  handleFinish();
-                });
-            } else {
-              clearTimeout(loadingTimeout);
-              setIsVideoLoading(false);
-              handleFinish();
-            }
-          });
-      } else {
-        clearTimeout(loadingTimeout);
-        setIsVideoLoading(false);
-        handleFinish();
-      }
-    }, 1400);
-  };
-
   const handleTimeUpdate = () => {
     if (videoRef.current && videoRef.current.duration > 0) {
-      // Auto-finish threshold to avoid TikTok end card
+      // Auto-finish threshold to avoid end card
       const endThreshold = Math.max(0, videoRef.current.duration - 1.8);
       if (videoRef.current.currentTime >= endThreshold) {
         videoRef.current.pause();
@@ -121,12 +87,16 @@ export const StartVideo: React.FC<StartVideoProps> = ({
 
   const handleFinish = () => {
     setIsFadingOut(true);
+    // Dispatch background music play event
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('play-wedding-music'));
+    }
     setTimeout(() => {
       setIsClosedInternal(true);
       if (onComplete) onComplete();
       if (onClose) onClose();
       setIsFadingOut(false);
-    }, 700);
+    }, 500);
   };
 
   const togglePlay = (e?: React.MouseEvent) => {
@@ -141,6 +111,7 @@ export const StartVideo: React.FC<StartVideoProps> = ({
         .play()
         .then(() => {
           setIsPlaying(true);
+          setShowTapToPlay(false);
         })
         .catch((err) => console.log('Play error:', err));
     }
@@ -163,7 +134,7 @@ export const StartVideo: React.FC<StartVideoProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-stone-950 flex items-center justify-center transition-all duration-700 ${
+      className={`fixed inset-0 z-50 bg-stone-950 flex items-center justify-center transition-all duration-500 ${
         isFadingOut ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'
       }`}
     >
@@ -171,183 +142,49 @@ export const StartVideo: React.FC<StartVideoProps> = ({
       <div className="relative w-full h-full max-w-2xl mx-auto flex items-center justify-center overflow-hidden shadow-2xl bg-stone-950">
         
         {/* ---------------------------------------------------- */}
-        {/* 3D 4-SLICE ENVELOPE OPENING LAYER                    */}
-        {/* ---------------------------------------------------- */}
-        {(!hasStarted || isFlapOpening) && (
-          <div
-            onClick={handleStartVideo}
-            className={`absolute inset-0 z-30 flex items-center justify-center [perspective:1200px] bg-stone-950 pointer-events-auto cursor-pointer transition-opacity duration-[1500ms] ${
-              isFlapOpening && hasStarted ? 'opacity-0 pointer-events-none delay-[3200ms]' : 'opacity-100'
-            }`}
-          >
-            {/* TOP SLICE FLAP */}
-            <div
-              className={`absolute inset-0 transition-all duration-[3500ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-top ${
-                isFlapOpening
-                  ? '[transform:rotateX(-135deg)_translateZ(150px)_scale(1.12)] opacity-0'
-                  : '[transform:rotateX(0deg)] opacity-100'
-              }`}
-              style={{ clipPath: 'polygon(0% 0%, 100% 0%, 50% 50%)' }}
-            >
-              <img
-                src="/gold_envelope.jpg"
-                alt="Top Flap Slice"
-                className="w-full h-full object-contain pointer-events-none filter brightness-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-amber-400/10 via-transparent to-black/50 pointer-events-none" />
-            </div>
-
-            {/* BOTTOM SLICE FLAP */}
-            <div
-              className={`absolute inset-0 transition-all duration-[3500ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom ${
-                isFlapOpening
-                  ? '[transform:rotateX(135deg)_translateZ(150px)_scale(1.12)] opacity-0'
-                  : '[transform:rotateX(0deg)] opacity-100'
-              }`}
-              style={{ clipPath: 'polygon(100% 100%, 0% 100%, 50% 50%)' }}
-            >
-              <img
-                src="/gold_envelope.jpg"
-                alt="Bottom Flap Slice"
-                className="w-full h-full object-contain pointer-events-none filter brightness-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-amber-400/10 via-transparent to-black/50 pointer-events-none" />
-            </div>
-
-            {/* LEFT SLICE FLAP */}
-            <div
-              className={`absolute inset-0 transition-all duration-[3500ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-left ${
-                isFlapOpening
-                  ? '[transform:rotateY(-135deg)_translateZ(150px)_scale(1.12)] opacity-0'
-                  : '[transform:rotateY(0deg)] opacity-100'
-              }`}
-              style={{ clipPath: 'polygon(0% 100%, 0% 0%, 50% 50%)' }}
-            >
-              <img
-                src="/gold_envelope.jpg"
-                alt="Left Flap Slice"
-                className="w-full h-full object-contain pointer-events-none filter brightness-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 via-transparent to-black/50 pointer-events-none" />
-            </div>
-
-            {/* RIGHT SLICE FLAP */}
-            <div
-              className={`absolute inset-0 transition-all duration-[3500ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-right ${
-                isFlapOpening
-                  ? '[transform:rotateY(135deg)_translateZ(150px)_scale(1.12)] opacity-0'
-                  : '[transform:rotateY(0deg)] opacity-100'
-              }`}
-              style={{ clipPath: 'polygon(100% 0%, 100% 100%, 50% 50%)' }}
-            >
-              <img
-                src="/gold_envelope.jpg"
-                alt="Right Flap Slice"
-                className="w-full h-full object-contain pointer-events-none filter brightness-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-amber-400/10 via-transparent to-black/50 pointer-events-none" />
-            </div>
-
-            {/* TOP COUPLE BADGE HEADER */}
-            <div className="absolute top-6 z-40 flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-200 text-xs font-serif font-bold backdrop-blur-md shadow-xl pointer-events-none">
-              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>{coupleNames}</span>
-            </div>
-
-            {/* CENTER BUTTERFLY WAX SEAL BUTTON WITH INNER LIGHT SCROLL */}
-            {!isFlapOpening && (
-              <div className="absolute z-40 flex flex-col items-center gap-4 text-center my-auto transition-transform duration-500">
-                <button
-                  onClick={handleStartVideo}
-                  aria-label="Open Invitation Envelope"
-                  className={`group relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-amber-600 via-amber-300 to-amber-500 border-2 border-amber-200 text-stone-950 animate-gold-pulse overflow-hidden cursor-pointer hover:scale-110 active:scale-95 transition-all duration-300 ${
-                    isSealExploding ? 'scale-150 opacity-0 transition-all duration-500' : ''
-                  }`}
-                >
-                  {/* INNER BUTTON LIGHT SCROLL EFFECT */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/90 to-transparent w-full h-full animate-light-scroll pointer-events-none" />
-
-                  {/* Gold Wax Seal Outer Crest */}
-                  <div className="relative z-10 flex flex-col items-center justify-center text-stone-950 font-serif">
-                    <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-stone-950 ml-0.5 group-hover:scale-110 transition-transform drop-shadow" />
-                    <span className="text-[9px] font-extrabold uppercase tracking-widest mt-0.5 text-stone-950 drop-shadow-sm">
-                      OPEN
-                    </span>
-                  </div>
-                </button>
-
-                <div className="space-y-1">
-                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-amber-200 drop-shadow-lg tracking-wide">
-                    Tap Butterfly Seal to Open 🎬
-                  </h3>
-                  <p className="text-xs text-amber-100/90 drop-shadow-md font-serif">
-                    Experience our 3D 4K celebration opening
-                  </p>
-                </div>
-              </div>
-            )}
-            {/* EXPLOSION & PARTICLE BURST TRANSITION EFFECT (Seconds 5-8) */}
-            {isSealExploding && (
-              <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center overflow-hidden">
-                {/* Outward Radial Warm Light Burst */}
-                <div className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-rose-400 opacity-90 filter blur-3xl animate-ping" />
-                <div className="absolute inset-0 bg-gradient-radial from-amber-200/40 via-transparent to-transparent animate-pulse" />
-
-                {/* Flying 3D Hearts & Golden Sparkles Radial Burst */}
-                {Array.from({ length: 30 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute text-xl sm:text-2xl select-none animate-ping"
-                    style={{
-                      transform: `rotate(${i * 12}deg) translate(${Math.random() * 200 + 80}px) scale(${Math.random() * 1.5 + 0.8})`,
-                      transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                      opacity: 0.9,
-                    }}
-                  >
-                    {['✨', '💛', '💖', '❄️', '⭐', '🌸'][i % 6]}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Cover screen envelope click handler */}
-          </div>
-        )}
-
-        {/* ---------------------------------------------------- */}
-        {/* LOADING SPINNER INDICATOR                            */}
+        {/* LOADING SPINNER                                     */}
         {/* ---------------------------------------------------- */}
         {isVideoLoading && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-950/80 backdrop-blur-sm z-25 pointer-events-none gap-3">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-950 z-25 pointer-events-none gap-3">
             <div className="w-12 h-12 rounded-full border-2 border-amber-400/30 border-t-amber-400 animate-spin" />
             <div className="flex items-center gap-2 text-amber-200 text-xs font-serif tracking-widest uppercase animate-pulse">
               <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Loading 4K Video...</span>
+              <span>Loading Video...</span>
             </div>
           </div>
         )}
 
         {/* ---------------------------------------------------- */}
-        {/* WATERMARK MASK BADGE (Royal Olive Emblem)            */}
+        {/* TAP TO PLAY OVERLAY (IF AUTOPLAY BLOCKED)            */}
         {/* ---------------------------------------------------- */}
-        {hasStarted && (
-          <div className="absolute left-[2%] sm:left-[5%] top-[46%] -translate-y-1/2 z-20 px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-[#525C45] border border-[#768564]/60 shadow-2xl backdrop-blur-md flex items-center gap-2 text-[#FCEEAC] pointer-events-none">
-            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-            <span className="text-xs font-serif font-bold tracking-wider whitespace-nowrap drop-shadow-md">
-              Ayesha & Rizwan
-            </span>
+        {showTapToPlay && (
+          <div 
+            onClick={togglePlay}
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-stone-950/70 backdrop-blur-xs cursor-pointer gap-4 text-center p-6"
+          >
+            <button className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-600 via-amber-300 to-amber-500 border-2 border-amber-200 text-stone-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-transform">
+              <Play className="w-10 h-10 fill-stone-950 ml-1" />
+            </button>
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-amber-200 drop-shadow-md">
+              Tap to Watch Opening Video 🎬
+            </h3>
           </div>
         )}
 
         {/* ---------------------------------------------------- */}
-        {/* VIDEO ELEMENT (4K Native Aspect Ratio View)          */}
+        {/* DIRECT VIDEO PLAYER (vdo.mp4)                        */}
         {/* ---------------------------------------------------- */}
         <video
           ref={videoRef}
           playsInline
           preload="auto"
+          autoPlay
           onCanPlay={() => setIsVideoLoading(false)}
-          onPlaying={() => setIsVideoLoading(false)}
+          onPlaying={() => {
+            setIsVideoLoading(false);
+            setShowTapToPlay(false);
+            setIsPlaying(true);
+          }}
           onWaiting={() => setIsVideoLoading(true)}
           onError={() => {
             console.log('Video load error or file missing');
@@ -365,11 +202,11 @@ export const StartVideo: React.FC<StartVideoProps> = ({
         </video>
 
         {/* Side Vignette Shadows */}
-        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/80 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/80 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/70 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/70 to-transparent pointer-events-none z-10" />
 
         {/* Top Controls Bar */}
-        <div className="absolute top-0 inset-x-0 h-36 bg-gradient-to-b from-black/90 via-black/50 to-transparent pointer-events-none flex items-start justify-between p-6 z-10">
+        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/90 via-black/50 to-transparent pointer-events-none flex items-start justify-between p-6 z-10">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
             <span className="text-amber-200 font-serif text-sm tracking-wider font-semibold drop-shadow-md">
@@ -387,7 +224,7 @@ export const StartVideo: React.FC<StartVideoProps> = ({
         </div>
 
         {/* Bottom Controls Bar */}
-        <div className="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none flex items-end justify-between p-6 z-10">
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none flex items-end justify-between p-6 z-10">
           <div className="flex items-center gap-3 pointer-events-auto">
             <button
               onClick={togglePlay}

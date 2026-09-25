@@ -75,7 +75,7 @@ export const EraseReveal: React.FC<EraseRevealProps> = ({ hiddenText = 'WE ARE G
 
   return (
     <div className="w-full max-w-sm mx-auto my-4 px-2 text-center">
-      <div className="p-5 sm:p-6 rounded-3xl bg-stone-900/90 border-2 border-[#D4AF37]/50 backdrop-blur-xl shadow-[0_10px_30px_rgba(212,175,55,0.25)] flex flex-col items-center">
+      <div className="p-5 sm:p-6 rounded-3xl bg-[#2E050D]/90 border-2 border-[#D4AF37]/60 backdrop-blur-xl shadow-[0_10px_35px_rgba(212,175,55,0.3)] flex flex-col items-center">
         <div className="flex items-center gap-1.5 text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2">
           <Gem className="w-4 h-4 text-[#D4AF37] animate-spin" />
           <span>Mystery Announcement</span>
