@@ -194,7 +194,7 @@ export const StartVideo: React.FC<StartVideoProps> = ({
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleFinish}
           onClick={togglePlay}
-          className="w-full h-full object-contain bg-stone-950 transition-transform duration-500 cursor-pointer"
+          className="w-full h-full object-cover bg-stone-950 transition-transform duration-500 cursor-pointer"
         >
           <source src={videoUrl} type="video/mp4" />
           <source src="/vdo.mp4" type="video/mp4" />
